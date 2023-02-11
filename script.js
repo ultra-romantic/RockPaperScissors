@@ -31,12 +31,44 @@ function singleRound(computerChoice,userChoice){
     }
 };
 
+function game(){
+    let puntosJugador=0,puntosMaquina=0;
+    let maquina, jugador, resultadoRonda;
+    for(let i=1;i<=5;i++){
+        maquina=computerChoice();
+        jugador=playerSelection();
+        resultadoRonda=singleRound(maquina,jugador);
+        console.log(resultadoRonda);
+        if(resultadoRonda.charAt(0)==="G"){
+            puntosJugador++;
+        }else if (resultadoRonda.charAt(0)==="P"){
+            puntosMaquina++;
+        }
+    }
+    if(puntosJugador===puntosMaquina){
+        console.log("EMPATE");
+        console.log("Puntos Jugador: " + puntosJugador);
+        console.log("Puntos Maquina: " + puntosMaquina);
+    }else if (puntosJugador>puntosMaquina){
+        console.log("Ganador: Jugador");
+        console.log("Puntos Jugador: " + puntosJugador);
+        console.log("Puntos Maquina: " + puntosMaquina);
+    }else if(puntosMaquina>puntosJugador){
+        console.log("Ganador: Maquina");
+        console.log("Puntos Jugador: " + puntosJugador);
+        console.log("Puntos Maquina: " + puntosMaquina);
+    }
+}
+
+game();
+
+/*
 const maquina=computerChoice();
 console.log("Computadora: " + maquina);
 const jugador=playerSelection();
 const resultado=singleRound(maquina,jugador);
 
-/*console.log("Computadora: " + maquina);*/
+console.log("Computadora: " + maquina);
 console.log("Usuario: " + jugador);
-console.log("Resultado: " + resultado);
+console.log("Resultado: " + resultado);*/
 
