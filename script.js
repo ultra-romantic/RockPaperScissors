@@ -7,12 +7,6 @@ function computerChoice(){
     }return "rock";
 };
 
-function playerSelection(){
-    let user=prompt();
-    user=user.toLowerCase();
-    return user;
-}
-
 function singleRound(computerChoice,userChoice){
     if(computerChoice===userChoice){
         return "Empate entre los dos jugadores";
@@ -31,44 +25,35 @@ function singleRound(computerChoice,userChoice){
     }
 };
 
-function game(){
-    let puntosJugador=0,puntosMaquina=0;
-    let maquina, jugador, resultadoRonda;
-    for(let i=1;i<=5;i++){
-        maquina=computerChoice();
-        jugador=playerSelection();
-        resultadoRonda=singleRound(maquina,jugador);
-        console.log(resultadoRonda);
-        if(resultadoRonda.charAt(0)==="G"){
-            puntosJugador++;
-        }else if (resultadoRonda.charAt(0)==="P"){
-            puntosMaquina++;
-        }
-    }
-    if(puntosJugador===puntosMaquina){
-        console.log("EMPATE");
-        console.log("Puntos Jugador: " + puntosJugador);
-        console.log("Puntos Maquina: " + puntosMaquina);
-    }else if (puntosJugador>puntosMaquina){
-        console.log("Ganador: Jugador");
-        console.log("Puntos Jugador: " + puntosJugador);
-        console.log("Puntos Maquina: " + puntosMaquina);
-    }else if(puntosMaquina>puntosJugador){
-        console.log("Ganador: Maquina");
-        console.log("Puntos Jugador: " + puntosJugador);
-        console.log("Puntos Maquina: " + puntosMaquina);
+//partida
+function game(playerSelection){
+    let puntosJugador=0,puntosMaquina=0,resultadoRonda;
+
+    resultadoRonda=singleRound(computerChoice(),playerSelection);
+    console.log(resultadoRonda);
+    if(resultadoRonda.charAt(0)==="G"){
+        puntosJugador++;
+    }else if (resultadoRonda.charAt(0)==="P"){
+        puntosMaquina++;
     }
 }
 
-game();
+//eventListeners
+const btnRock = document.querySelector("#rock");
+btnRock.addEventListener('click', e => {
+    let userChoice='rock';
+    game(userChoice);
+});
 
-/*
-const maquina=computerChoice();
-console.log("Computadora: " + maquina);
-const jugador=playerSelection();
-const resultado=singleRound(maquina,jugador);
+const btnPaper = document.querySelector("#paper");
+btnPaper.addEventListener('click', e => {
+    let userChoice='paper';
+    game(userChoice);
+});
 
-console.log("Computadora: " + maquina);
-console.log("Usuario: " + jugador);
-console.log("Resultado: " + resultado);*/
+const btnScissors = document.querySelector("#scissors");
+btnScissors.addEventListener('click', e => {
+    let userChoice='scissors';
+    game(userChoice);
+});
 
