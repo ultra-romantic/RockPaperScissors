@@ -1,3 +1,20 @@
+//globalDeclarations
+let userPoints=0, machinePoints=0;
+let round=1;
+let logArray=[];
+
+//buttonReferences
+const btnRock = document.querySelector("#rock");
+const btnPaper = document.querySelector("#paper");
+const btnScissors = document.querySelector("#scissors");
+const btnRestart = document.querySelector("#restart");
+
+//matchLog
+const matchLog = document.querySelector(".matchLog");
+const ulLog = document.createElement("ul");
+matchLog.appendChild(ulLog);
+
+//computerChoice
 function computerChoice(){
     let num=Math.floor(Math.random() * 3) + 1;
     if(num===3){
@@ -7,53 +24,67 @@ function computerChoice(){
     }return "rock";
 };
 
+//playsSingleRound
 function singleRound(computerChoice,userChoice){
     if(computerChoice===userChoice){
-        return "Empate entre los dos jugadores";
+        return document.querySelector("#roundText").textContent="Empate entre los dos jugadores";
     }else if (computerChoice==="paper" && userChoice==="rock"){
-        return "Perdiste, el papel le gana a la piedra";
+        return document.querySelector("#roundText").textContent="Perdiste, el papel le gana a la piedra";
     }else if (computerChoice==="rock" && userChoice==="paper"){
-        return "Ganaste, el papel le gana a la piedra";
+        return document.querySelector("#roundText").textContent="Ganaste, el papel le gana a la piedra";
     }else if (computerChoice==="scissors" && userChoice==="paper"){
-        return "Perdiste, las tijeras le ganan al papel";
+        return document.querySelector("#roundText").textContent="Perdiste, las tijeras le ganan al papel";
     }else if (computerChoice==="paper" && userChoice==="scissors"){
-        return "Ganaste, las tijeras le ganan al papel";
+        return document.querySelector("#roundText").textContent="Ganaste, las tijeras le ganan al papel";
     }else if (computerChoice==="scissors" && userChoice==="rock"){
-        return "Ganaste, la roca le gana a las tijeras";
+        return document.querySelector("#roundText").textContent="Ganaste, la roca le gana a las tijeras";
     }else if (computerChoice==="rock" && userChoice==="scissors"){
-        return "Perdiste, la roca le gana a las tijeras";
+        return document.querySelector("#roundText").textContent="Perdiste, la roca le gana a las tijeras";
     }
 };
 
-//partida
-function game(playerSelection){
-    let puntosJugador=0,puntosMaquina=0,resultadoRonda;
-
+//playsGame
+function game(){
+    let resultadoRonda;
+    let playerSelection=this.dataset.button;
     resultadoRonda=singleRound(computerChoice(),playerSelection);
-    console.log(resultadoRonda);
-    if(resultadoRonda.charAt(0)==="G"){
-        puntosJugador++;
-    }else if (resultadoRonda.charAt(0)==="P"){
-        puntosMaquina++;
+    let firstLetter=resultadoRonda.charAt(0);
+    if(firstLetter!=="E"){
+        if(firstLetter==="G"){
+            userPoints++;
+        }else if (firstLetter==="P"){
+            machinePoints++;
+        } 
     }
+
+    logArray.push(`Round ${round}: ${resultadoRonda} | User points: ${userPoints} | Machine points: ${machinePoints}`);
+    const logLi = document.createElement("li");
+    logLi.textContent = logArray[(logArray.length)-1];
+    ulLog.insertAdjacentElement("afterbegin", logLi);
+
+    document.querySelector("#playerPoints").textContent=userPoints;
+    document.querySelector("#machinePoints").textContent=machinePoints;
+    document.querySelector("#roundText").textContent=resultadoRonda;
+    if(machinePoints>=5 || userPoints>=5){
+        btnRock.setAttribute("disabled","disabled");
+        btnPaper.setAttribute("disabled","disabled");
+        btnScissors.setAttribute("disabled","disabled");
+    }
+    round++;
 }
 
 //eventListeners
-const btnRock = document.querySelector("#rock");
-btnRock.addEventListener('click', e => {
-    let userChoice='rock';
-    game(userChoice);
-});
+btnRock.addEventListener('click', game);
+btnPaper.addEventListener('click', game);
+btnScissors.addEventListener('click', game);
+btnRestart.addEventListener('click', e => { //restartsGame
+    userPoints=0;
+    machinePoints=0;
+    document.querySelector("#playerPoints").textContent=userPoints;
+    document.querySelector("#machinePoints").textContent=machinePoints;
+    document.querySelector("#roundText").textContent="";
+})
 
-const btnPaper = document.querySelector("#paper");
-btnPaper.addEventListener('click', e => {
-    let userChoice='paper';
-    game(userChoice);
-});
 
-const btnScissors = document.querySelector("#scissors");
-btnScissors.addEventListener('click', e => {
-    let userChoice='scissors';
-    game(userChoice);
-});
+
 

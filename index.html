@@ -3,12 +3,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <title>Rock Paper Scissors</title>
 </head>
 <body>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissors">Scissors</button>
+    <div class="container">
+        <div class="content"><button id="rock" data-button="rock"><img src="images/icons8-puño-cerrado-48.png" alt=""></button>
+        </div>
+        
+        <div class="content"><button id="paper" data-button="paper"><img src="images/icons8-archivo-48.png" alt=""></button>
+        </div>
+
+        <div class="content"><button id="scissors" data-button="scissors"><img src="images/icons8-tijeras-de-peluquero-40.png" alt=""></button>
+        </div>
+    </div>
+
+    <div class="container" id="result">
+        <p id="player">puntosJugador: <p class="points" id="playerPoints">0</p></p>
+        <p id="roundText"></p>
+        <p id="machine">puntos Maquina: <p class="points" id="machinePoints">0</p></p>
+    </div>
+
+    <div class="container">
+        <button id="restart">Restart Game</button>
+    </div>
+
+    <div class="container">
+        <div class="matchlog"></div>
+    </div>
+    
 
     <script src="script.js"></script>
 </body>
